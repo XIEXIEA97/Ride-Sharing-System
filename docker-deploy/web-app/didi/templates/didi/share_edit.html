@@ -1,0 +1,17 @@
+{% extends 'didi/main.html' %}
+{% block content %}
+<h3>Edit Share</h3>
+<hr>
+<div class="row">
+    <div class="card card-body">
+        {% for message in messages %}
+            <p id="messages">{{message}}</p>
+        {% endfor %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input class="btn btn-primary" type="submit" name="Submit" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}

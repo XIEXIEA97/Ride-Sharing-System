@@ -1,0 +1,16 @@
+{% extends 'didi/main.html' %}
+{% block content %}
+<h3>Driver Unregister</h3>
+<hr>
+<div class="row">
+    <div class="card card-body">
+        Are you sure you want to unregister as a driver and delete {{vehicle}} from your profile?
+        <br><br>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" name="yes" value="Yes, I'm sure">
+            <a class="btn btn-warning" href="{% url 'didi:home' %}">Nope</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

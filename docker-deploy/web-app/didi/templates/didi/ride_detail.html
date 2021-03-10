@@ -1,0 +1,119 @@
+{% extends 'didi/main.html' %}
+{% block content %}
+<h3>Ride No. {{ride.id}}</h3>
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <h5>Ride Detail</h5>
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Ride Owner</th>
+                    <td>{{ride.ride_owner.get_full_name}}</td>
+                </tr>
+                <tr>
+                    <th>From</th>
+                    <td>{{ride.start_point}}</td>
+                </tr>
+                <tr>
+                    <th>To</th>
+                    <td>{{ride.destination}}</td>
+                </tr>
+                <!-- <tr>
+                    <th>Start Time</th>
+                    <td>{{ride.start_time}}</td>
+                </tr> -->
+                <tr>
+                    <th>Arrival Time</th>
+                    <td>{{ride.arrival_time}}</td>
+                </tr>
+                <tr>
+                    <th>Request Time</th>
+                    <td>{{ride.request_time}}</td>
+                </tr>
+                <tr>
+                    <th>Passengers from Owner's Party</th>
+                    <td>{{ride.owner_psger_num}}</td>
+                </tr>
+                <tr>
+                    <th>Request Vehicle Type</th>
+                    <td>{{ride.get_vehicle_type_display}}</td>
+                </tr>
+                <tr>
+                    <th>Sharable</th>
+                    <td>{{ride.sharable}}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ride.get_status_display}}</td>
+                </tr>
+                <tr>
+                    <th>Special Requests</th>
+                    <td>
+                        {% for request in requests %}
+                            {% if forloop.counter > 1 %} | {% endif %}
+                            {{request}}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+        {% if driver %}
+        <h5>Driver's Info</h5>
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Driver's Name</th>
+                    <td>{{driver.get_full_name}}</td>
+                </tr>
+                <tr>
+                    <th>Driver's Email</th>
+                    <td>{{driver.email}}</td>
+                </tr>
+                <tr>
+                    <th>Vehicle Type</th>
+                    <td>{{vehicle.get_vehicle_type_display}}</td>
+                </tr>
+                <tr>
+                    <th>Plate Number</th>
+                    <td>{{vehicle.plate_number}}</td>
+                </tr>
+                <tr>
+                    <th>License Number</th>
+                    <td>{{vehicle.license_number}}</td>
+                </tr>
+                <tr>
+                    <th>Capacity</th>
+                    <td>{{vehicle.vehicle_capacity}}</td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        {% endif %}
+        {% if sharers %}
+        <h5>Sharer's Info</h5>
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Sharer</th>
+                    <th>Number of Passengers</th>
+                </tr>
+                {% for share in sharers %}
+                <tr>
+                    <td>{{share.user_sharer.get_full_name}}</td>
+                    <td>{{share.psger_num}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <hr>
+        {% endif %}
+    </div>
+</div>
+<hr>
+<form>
+    <input type="button" class="btn btn-secondary" value="Get back" onclick="history.back()">
+</form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'didi/main.html' %}
+{% block content %}
+<h3>Search open ride for driver</h3>
+<hr>
+<div class="row">
+    <div class="col-md">
+        <h5>Search Result</h5>
+        <div class="card card-body">
+            {% if flag == 0 %}
+                <h5>No matching ride found.</h5>
+            {% else %}
+                <table class="table table-sm">
+                    {% for ride in driver_open_rides %}
+                    <tr>
+                        <td><a href="{% url 'didi:ride' ride.id %}">{{ride}}</a></td>
+                        <td><a href="{% url 'didi:confirm_ride_driver' ride.id%}" class="btn btn-primary">Confirm</a></td>
+                        
+                    </tr>
+                    {% endfor %}
+                    
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

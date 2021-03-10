@@ -1,0 +1,51 @@
+{% extends 'didi/main.html' %}
+{% block content %}
+<hr>
+<div class="row">
+    <div class="col">
+        <h5>Ride Driver Info</h5>
+        <table class="table table-sm">
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>Driver</td>
+                <td>{{vehicle.user.get_full_name}}</td>
+            </tr>
+            <tr>
+                <td>Driver Email</td>
+                <td>{{vehicle.user.email}}</td>
+            </tr>
+            <tr>
+                <td>Vehicle type</td>
+                <td>{{vehicle.vehicle_type}}</td>
+            </tr>
+            <tr>
+                <td>Vehicle plate number</td>
+                <td>{{vehicle.plate_number}}</td>
+            </tr>
+            <tr>
+                <td>Vehicle license number</td>
+                <td>{{vehicle.license_number}}</td>
+            </tr>
+            <tr>
+                <td>Vehicle capacity</td>
+                <td>{{vehicle.vehicle_capacity}}</td>
+            </tr>
+            <tr>
+                <td>Request Vehicle Type</td>
+                <td>{{vehicle.get_vehicle_type_display}}</td>
+            </tr>
+            <tr>
+                <td>Vehicle Feature</td>
+                <td>
+                    {% for fearture in request %}
+                        {% if forloop.counter > 1 %} | {% endif %}
+                        {{fearture}}
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
+</div>
+{% endblock %}

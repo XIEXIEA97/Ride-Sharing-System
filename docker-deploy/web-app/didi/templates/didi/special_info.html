@@ -1,0 +1,27 @@
+{% extends 'didi/main.html' %}
+{% block content %}
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <h5>Modify Vehicle's Features</h5>
+        <div class="card card-body">
+            <form action="{% url 'didi:si_modify' %}" method="post">
+                {% csrf_token %}
+                {{form_mod.as_p}}
+                <input class="btn btn-primary" type="submit" name="Submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h5>Create New Feature</h5>
+        <div class="card card-body">
+
+            <form action="{% url 'didi:si_create' %}" method="post">
+                {% csrf_token %}
+                {{form_create.as_p}}
+                <input class="btn btn-primary" type="submit" name="Create" value="Create">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

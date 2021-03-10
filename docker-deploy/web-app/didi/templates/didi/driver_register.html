@@ -1,0 +1,14 @@
+{% extends 'didi/main.html' %}
+{% block content %}
+<h3>Driver Registration</h3>
+<hr>
+<div class="row">
+    <div class="card card-body">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input class="btn btn-primary" type="submit" name="Register" value="Register">
+        </form>
+    </div>
+</div>
+{% endblock %}

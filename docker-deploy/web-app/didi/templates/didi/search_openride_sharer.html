@@ -1,0 +1,46 @@
+{% extends 'didi/main.html' %}
+{% block content %}
+<h3>Search Open Ride to Join</h3>
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <h5>Search Conditions</h5>
+        <div class="card card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input class="btn btn-primary" type="submit" name="Search" value="Search">
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h5>Search Result</h5>
+        <div class="card card-body">
+            {% if flag == "test" %}
+                <h5>No matching ride found.</h5>
+            {% else %}
+                <table class="table table-sm">
+                    {% for ride in sharer_open_rides %}
+                    <tr>
+                        <td><a href="{% url 'didi:ride' ride.id %}">{{ride}}</a></td>
+                        <td><input class="btn btn-primary" type="button" name="Join" value="Join" onclick="myFunction('{{ride.id}}')"></td>
+                    </tr>
+                    {% endfor %}
+                    
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function myFunction(rideid) {
+        var num = document.getElementById("id_owner_psger_num").value;
+        console.log("sbsb: " + "/didi/join_ride_sharer/" + rideid + "/" + num);
+        window.location.href = "/didi/join_ride_sharer/" + rideid + "/" + num
+        //"/didi/join_ride_sharer/{{ride.id}}/"
+    }
+</script>
+{% endblock %}
+
+

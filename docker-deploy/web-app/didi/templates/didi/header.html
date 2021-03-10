@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="">Ride Sharing System</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+		aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNav">
+		<ul class="navbar-nav">
+			{% if name %}
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'didi:home' %}">Hello {{name}}!</a>
+			</li>
+			{% endif %}
+			<li class="nav-item active">
+				<a class="nav-link" href="{% url 'didi:home' %}">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'didi:edit_personal' %}">Edit Profile</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'didi:reset_password' %}">Reset Password</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'didi:logout' %}">Logout</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+<br>

@@ -1,0 +1,167 @@
+{% extends 'didi/main.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <h3>My Rides</h3>
+        <hr>
+        <h5>As Owner</h5>
+        <div class="card card-body">
+            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'didi:ride_request' %}">Request New Ride</a>
+            {% if my_rides %}
+            <table class="table table-sm">
+                <tr>
+                    <th>Ride</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for ride in my_rides %}
+                <tr>
+                    <td><a href="{% url 'didi:ride' ride.id %}">{{ride}}</a></td>
+                    <td>{{ride.get_status_display}}</td>
+                    {% if ride.status == 'OPEN' %}
+                    <td><a class="btn btn-sm btn-info" href="{% url 'didi:ride_edit' ride.id %}">Edit</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'didi:ride_cancel' ride.id %}">Cancel</a></td>
+                    {% endif %}
+                </tr>                    
+                {% endfor %}
+            </table>
+            {% else %}
+            <hr><h5>I don't own any rides yet.</h5>
+            {% endif %}
+        </div>
+        <hr>
+        <h5>As Sharer</h5>
+        <div class="card card-body">
+            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'didi:search_openride_sharer' %}">Search Rides to Join</a>
+            {% if my_sharer_rides %}
+            <table class="table table-sm">
+                <tr>
+                    <th>Ride As Sharer</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                {% for ride in my_sharer_rides %}
+                <tr>
+                    <td><a href="{% url 'didi:ride' ride.id %}">{{ride}}</a></td>
+                    <td>{{ride.get_status_display}}</td>
+                    {% if ride.status == 'SHARED' %}
+                    <td><a class="btn btn-sm btn-info" href="{% url 'didi:share_edit' ride.id %}">Edit</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'didi:share_cancel' ride.id %}">Quit</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <hr><h5>I haven't join any rides.</h5>
+            {% endif %}
+        </div>
+        <hr>
+        <h5>Confirmed Rides</h5>
+        <div class="card card-body">
+            {% if my_confirmed_rides_vehicle %}
+            <table class="table table-sm">
+                <tr>
+                    <th>Ride</th>
+                    <th>Driver's Info</th>
+                </tr>
+                {% for item1, item2 in my_confirmed_rides %}
+                <tr>
+                    <td><a href="{% url 'didi:ride' item1.id %}">{{item1}}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'didi:vehicle_detail' item2.user.id %}">{{item2}}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <hr><h5>I don't have any rides confirmed.</h5>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-6">
+        {% if vehicle %}
+        <h3>As a Driver</h3>
+        <hr>
+        <h5>Complete Rides</h5>
+        <div class="card card-body">
+            <table class="table table-sm">
+                {% if confirmed_drive_rides %}
+                <tr>
+                    <th>Ride</th>
+                    <th>Action</th>
+                </tr>
+                {% for ride in confirmed_drive_rides %}
+                <tr>
+                    <td><a href="{% url 'didi:ride' ride.id %}">{{ride}}</a></td>
+                    <td><a class="btn btn-sm btn-success" href="{% url 'didi:mark_complete' ride.id%}">Complete</a></td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'didi:search_openride_driver'%}"> Search Rides to Drive</a>
+            </table>
+        </div>
+        <!-- {% if drive_rides %}
+        <hr>
+        <h5>Rides to Drive</h5>
+		<div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Ride</th>
+                    <th>Status</th>
+                </tr>
+                {% for ride in drive_rides %}
+                <tr>
+                    <td><a href="{% url 'didi:ride' ride.id %}">{{ride}}</a></td>
+                    <td>{{ride.get_status_display}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <hr>
+        {% endif %} -->
+        
+        <hr>
+        <h5>My Vehicle Info</h5>
+        <div class="card card-body">
+            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'didi:driver_update' %}">Update Vehicle Info</a>
+            <table class="table table-sm">
+                <tr>
+                    <th>Type</th>
+                    <td>{{vehicle.get_vehicle_type_display}}</td>
+                </tr>
+                <tr>
+                    <th>Plate Number</th>
+                    <td>{{vehicle.plate_number}}</td>
+                </tr>
+                <tr>
+                    <th>License Number</th>
+                    <td>{{vehicle.license_number}}</td>
+                </tr>
+                <tr>
+                    <th>Capacity</th>
+                    <td>{{vehicle.vehicle_capacity}}</td>
+                </tr>
+            </table>
+            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'didi:driver_unregister'%}"> Unregister</a>
+        </div>
+        <hr>
+        <h5>My Vehicle Features</h5>
+        <div class="card card-body">
+            <table class="table table-sm">
+                <a class="btn btn-primary  btn-sm btn-block" href="{% url 'didi:si_modify' %}">Edit Features</a>
+                {% for feature in features %}
+                <tr>
+                    <th>{{feature}}</th>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% else %}
+        <h3>You are not a driver yet. </h3>
+        <a href="{% url 'didi:driver_register' %}">Register</a> as a driver!
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
